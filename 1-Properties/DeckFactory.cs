@@ -13,45 +13,28 @@ namespace Properties
 
         private string[] names;
 
-        // TODO improve
-        public IList<string> GetSeeds()
+        public IList<string> Seeds
         {
-            return this.seeds.ToList();
+            get { return seeds.ToList(); }
+            set { seeds = value.ToArray(); }
         }
 
-        // TODO improve
-        public void SetSeeds(IList<string> seeds)
+        public IList<string> Names
         {
-            this.seeds = seeds.ToArray();
+            get { return names.ToList(); }
+            set { names = value.ToArray(); }
         }
 
-        // TODO improve
-        public IList<string> GetNames()
+        public int DeckSize
         {
-            return this.names.ToList();
+            get { return names.Length * seeds.Length; }
         }
 
-        // TODO improve
-        public void SetNames(IList<string> names)
-        {
-            this.names = names.ToArray();
-        }
-
-        // TODO improve
-        public int GetDeckSize()
-        {
-            return this.names.Length * this.seeds.Length;
-        }
-
-        /// TODO improve
         public ISet<Card> GetDeck()
         {
-            if (this.names == null || this.seeds == null)
+            try
             {
-                throw new InvalidOperationException();
-            }
-
-            return new HashSet<Card>(Enumerable
+                return new HashSet<Card>(Enumerable
                 .Range(0, this.names.Length)
                 .SelectMany(i => Enumerable
                     .Repeat(i, this.seeds.Length)
@@ -60,6 +43,12 @@ namespace Properties
                         (n, s) => Tuple.Create(this.names[n], this.seeds[s], n)))
                 .Select(tuple => new Card(tuple))
                 .ToList());
+            }
+            catch(InvalidOperationException e)
+            {
+                Console.WriteLine(e.Message);
+                return null;
+            }
         }
     }
 }
