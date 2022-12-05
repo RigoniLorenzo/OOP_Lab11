@@ -1,3 +1,6 @@
+using System;
+using System.Text;
+
 namespace ComplexAlgebra
 {
     /// <summary>
@@ -17,6 +20,81 @@ namespace ComplexAlgebra
     /// TODO:     - e.g. via the Equals(object) method
     public class Complex
     {
-        // TODO: fill this class\
+        public Complex(double real, double img)
+        {
+            this.Real = real;
+            this.Imaginary = img;
+        }
+
+        public double Real
+        {
+            get;
+        }
+
+        public double Imaginary
+        {
+            get;
+        }
+
+        public double Modulus
+        {
+            get { return Math.Sqrt((Math.Pow(Real, 2) + Math.Pow(Imaginary, 2))); }
+        }
+
+        public double Phase
+        {
+            get {
+                if(Real != 0)
+                    return Math.Atan2(Imaginary, Real);
+                else
+                    return 0;
+            }
+        }
+
+        public Complex Complement()
+        {
+            return new Complex(Real, -Imaginary); 
+        }
+
+        public Complex Plus(Complex num)
+        {
+            return new Complex(Real + num.Real, Imaginary + num.Imaginary);
+        }
+
+        public Complex Minus(Complex num)
+        {
+            return new Complex(Real - num.Real, Imaginary - num.Imaginary); 
+        }
+
+        public override string ToString()
+        {
+            double imAbs = Math.Abs(Imaginary);
+            string imValue = imAbs == 1.0 ? "" : imAbs.ToString();
+            string sign = Imaginary > 0 ? "+" : "-";
+
+            StringBuilder sB = new StringBuilder();
+            if(Imaginary == 0.0 || Real == 0d)
+            {
+                if (Imaginary == 0.0)
+                    sB.Append(Real.ToString());
+                else if (Real == 0d)
+                    sB.Append(sign + "i" + imValue);
+            }
+            else
+                sB.Append(Real.ToString() + " " + sign + " i" + imValue);
+            return sB.ToString();
+        }
+
+        public override bool Equals(object obj)
+        {
+            return obj is Complex complex &&
+                   Real == complex.Real &&
+                   Imaginary == complex.Imaginary;
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(Real, Imaginary);
+        }
     }
 }
