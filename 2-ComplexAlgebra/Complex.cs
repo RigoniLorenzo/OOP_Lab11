@@ -44,10 +44,7 @@ namespace ComplexAlgebra
         public double Phase
         {
             get {
-                if(Real != 0)
-                    return Math.Atan2(Imaginary, Real);
-                else
-                    return 0;
+                return Math.Atan2(Imaginary, Real);
             }
         }
 
