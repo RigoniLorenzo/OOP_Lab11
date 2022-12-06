@@ -68,9 +68,9 @@ namespace Calculus
 
         public override string ToString()
         {
-            string value = Value == null ? "null" : Value.ToString();
-            var operation = Operation == null ? "null" : Operation.ToString();
-            return $"Calculator({nameof(Value)}={value}, {nameof(Operation)}={operation})";
+            string value = (Value == null) ? "null" : Value.ToString();
+            var operation = (Operation == null) ? "null" : Operation.ToString();
+            return $"({value}, {operation})";
         }
     }
 }

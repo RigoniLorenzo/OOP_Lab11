@@ -47,7 +47,12 @@ namespace Arrays
         /// TODO: implement this method
         public static Complex[] Clone(Complex[] array)
         {
-            return null; // TODO: remove this line
+            Complex[] clone = new Complex[array.Length];
+            for(int i = 0; i < clone.Length; i++)
+            {
+                clone[i] = array[i];
+            }
+            return clone; 
         }
 
         /// <summary>
